@@ -17,7 +17,7 @@ React-Capstone: Help
 ## Table of Contents
 
 1. [FYI](#fyi)
-1. [Configurations](https://github.com/rockchalkwushock/notes_dashboard/docs/blob/master/Configurations.md)
+1. [Configurations](https://github.com/rockchalkwushock/note_dashboard/blob/master/docs/Configurations.md)
 1. [License](#license)
 
 ## FYI
