@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "equimper",
+    "prettier"
+    ],
+  "env": {
+    "jest": true
+  }
+}

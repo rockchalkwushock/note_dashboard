@@ -1,0 +1,21 @@
+{
+  "env": {
+    "development": {
+      "presets": [
+        ["env", { "modules": false }],
+        "react",
+        "stage-0"
+      ]
+    },
+    "production": {
+      "presets": [
+        ["env", { "modules": false }],
+        "react",
+        "stage-0"
+      ]
+    },
+    "test": {
+      "presets": ["env", "react" ,"stage-0"]
+    }
+  }
+}
