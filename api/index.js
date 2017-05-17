@@ -1,16 +1,22 @@
 /* eslint-disable no-console */
 
 import express from 'express';
-import { middlewares } from './utils';
+import {
+  database,
+  config,
+  middlewares,
+} from './utils';
 
+// Create instance of Express.
 const app = express();
-
 const MODE = process.env.NODE_ENV;
-const PORT = process.env.PORT || 3000;
 
+// Apply middlewares to Express.
 middlewares(app);
+// Connect to the environment determined database.
+database(config.MONGO_URI)
 
-app.listen(PORT, err => {
+app.listen(config.PORT, err => {
   if (err) { return console.error(err); }
-  console.log(`App running on port: ${PORT} in ${MODE} mode.`);
+  console.log(`App running on port: ${config.PORT} in ${MODE} mode.`);
 });
