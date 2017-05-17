@@ -5,16 +5,18 @@
  * Depending on NODE_ENV other configurations are added.
  */
 
-
 const devConfig = {
+  JWT_SECRET: process.env.JWT_SECRET,
   MONGO_URI: 'mongodb://localhost/notes-dashboard-development',
 }
 
 const prodConfig = {
-  MONGO_URI: process.env.MONGO_URI
+  JWT_SECRET: process.env.JWT_SECRET,
+  MONGO_URI: process.env.MONGO_URI,
 }
 
 const testConfig = {
+  JWT_SECRET: 'ewtijwebgiuweg9w98u9283982t!!u1h28h1t1h89u9h@$$',
   MONGO_URI: 'mongodb://localhost/notes-dashboard-test',
 }
 
