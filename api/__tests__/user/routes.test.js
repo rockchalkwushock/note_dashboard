@@ -8,10 +8,10 @@ import { config } from '../../utils';
 import server from '../../index';
 
 // Store endpoint that will be tested.
-const endpoint = `${config.ENDPOINT}/user/sign-up`
+const endpoint = `${config.ENDPOINT}/users/sign-up`
 let testUser;
 
-describe('POST: /user/sign-up', () => {
+describe('POST: /sign-up', () => {
   // Before the test suite begins testing the code base
   // Remove any 'users' from the database.
   // Instantiate a testUser to use throughout the tests.
@@ -27,14 +27,14 @@ describe('POST: /user/sign-up', () => {
       // https://facebook.github.io/jest/docs/en/expect.html#expectassertionsnumber
       expect.assertions(1);
       try {
-        const { status } = await mockRoute(endpoint, UserFactory.generate());
+        const { status } = await mockRoute('/sign-up', endpoint, UserFactory.generate());
         expect(status).toEqual(201);
       } catch (e) { throw e; };
     });
     test('Returns user object', async () => {
       expect.assertions(2);
       try {
-        const { body } = await mockRoute(endpoint, UserFactory.generate());
+        const { body } = await mockRoute('/sign-up', endpoint, UserFactory.generate());
         expect(body).toHaveProperty('_id');
         expect(body).toHaveProperty('token');
       } catch (e) { throw e; };

@@ -7,12 +7,14 @@ import valid from './validation'
 const routes = new Router();
 
 /**
- * 1. Define the route: 'user/signup'.
+ * All these routes are prefixed by: /users
+ *
+ * 1. Define the route: '/signup'.
  * 2. Validate the data being provided on the POST
  *    against valid.signUp object.
  * 3. Provide data to signUp controller method for
  *    creating a user in the database.
  */
-routes.post('/user/sign-up', validate(valid.signUp), signUp);
+routes.post('/sign-up', validate(valid.signUp), signUp);
 
 export default routes;

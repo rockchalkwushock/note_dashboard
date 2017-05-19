@@ -5,7 +5,7 @@ import helmet from 'helmet';
 import methodOverride from 'method-override';
 import morgan from 'morgan';
 
-import { userRoutes } from '../modules';
+import { apiRoutes } from '../modules';
 
 const isDev = process.env.NODE_ENV === 'development';
 const isTest = process.env.NODE_ENV === 'test';
@@ -23,8 +23,6 @@ export default app => {
    * API Routing
    * - /api/v1 - is the parent prefix
    * - /users  - is a child prefix that creates a user.
-   * Adding routes is as simple as adding the fooRoutes
-   * to the array object.
    */
-  app.use('/api/v1', [userRoutes]);
+  app.use('/api/v1', apiRoutes);
 }
