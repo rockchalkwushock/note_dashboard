@@ -24,6 +24,7 @@ export const mockRoute = (endpoint, route, data) => {
     case '/delete-note': return null;
     case '/get-note': return null;
     case '/get-notes': return null;
+    case '*': return request(server).get(route);
     default: return 'Oops you screwed something up!';
   }
 }
