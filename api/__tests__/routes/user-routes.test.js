@@ -4,8 +4,8 @@ import mongoose from 'mongoose';
 
 import { mockRoute, UserFactory } from '../../__mocks__';
 import { User } from '../../modules';
-import { config } from '../../utils';
-import server from '../../index';
+import { config } from '../../configs';
+import server from '../../';
 
 // Store endpoint that will be tested.
 const endpoint = `${config.ENDPOINT}/users/sign-up`
@@ -41,26 +41,47 @@ describe('POST: /sign-up', () => {
     });
   });
   describe('FAILED REQUEST TEST CASES', () => {
-    test.skip('No Email returns status of 400', async () => {
-      expect.assertions(1);
+    test('Registering an existing user returns status of 400', async () => {
+      expect.assertions(3);
       try {
-        const { status } = await mockRoute(endpoint, { password: 'password1' });
+        const { body, status } = await mockRoute('/sign-up', endpoint, { email: testUser.email, password: 'password1' });
         expect(status).toEqual(400);
+        expect(body.message).toEqual('users validation failed');
+        expect(body.errors.email).toEqual(`${testUser.email} already taken!`);
+      } catch (e) { throw e; };
+    })
+    test('No Email returns status of 400', async () => {
+      expect.assertions(2);
+      try {
+        const { body, status } = await mockRoute('/sign-up', endpoint, { password: 'password1' });
+        expect(status).toEqual(400);
+        expect(body.message).toEqual('validation error');
       } catch (e) { throw e; };
     });
-    test.skip('No Password returns status of 400', async () => {
-      expect.assertions(1);
+    test('No Password returns status of 400', async () => {
+      expect.assertions(2);
       try {
-        const { status } = await mockRoute(endpoint, { email: testUser.email });
+        const { body, status } = await mockRoute('/sign-up', endpoint, { email: testUser.email });
         expect(status).toEqual(400);
+        expect(body.message).toEqual('validation error');
       } catch (e) { throw e; };
     });
-    test.skip('Invalid Email returns status of 400', async () => {
-      expect.assertions(1);
+    test('Invalid Email returns status of 400', async () => {
+      expect.assertions(3);
       try {
-        const { status } = await mockRoute(endpoint, { email: 'user@test', password: 'userPassword' });
+        const { body, status } = await mockRoute('/sign-up', endpoint, { email: 'user@test', password: 'password1' });
         expect(status).toEqual(400);
-      } catch (e) { throw e; }
+        expect(body.message).toEqual('users validation failed');
+        expect(body.errors.email).toEqual('user@test is not a valid email!');
+      } catch (e) { throw e; };
+    })
+    test('Improper length on password returns status of 400', async () => {
+      expect.assertions(2);
+      try {
+        const { body, status } = await mockRoute('/sign-up', endpoint, { email: '123@test.com', password: 'pas' });
+        expect(status).toEqual(400);
+        expect(body.message).toEqual('validation error');
+      } catch (e) { throw e; };
     })
   });
   // After all tests have completed teardown
