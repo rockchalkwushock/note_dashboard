@@ -1,9 +1,16 @@
+require('dotenv-safe').load();
 /**
  * Configure environment for API to execute in based on
  * NODE_ENV.
  * Default Configurations are always used.
  * Depending on NODE_ENV other configurations are added.
  */
+
+const WHITELIST = {
+  users: {
+    signUp: ['email', 'password'],
+  },
+}
 
 const devConfig = {
   JWT_SECRET: process.env.JWT_SECRET,
@@ -16,18 +23,21 @@ const prodConfig = {
 }
 
 const testConfig = {
-  JWT_SECRET: 'ewtijwebgiuweg9w98u9283982t!!u1h28h1t1h89u9h@$$',
+  JWT_SECRET: process.env.JWT_SECRET,
   MONGO_URI: 'mongodb://localhost/notes-dashboard-test',
 }
 
 const defaultConfig = {
+  ENDPOINT: '/api/v1',
   PORT: process.env.PORT || 3000,
+  WHITELIST,
 }
 
 /**
  * configureEnvironment(arg)
  *
- * @param {String} env
+ * @param {String} env - process.env.NODE_ENV
+ * @returns {Object} config - config object based on current environment.
  */
 const configureEnvironment = env => {
   switch (env) {
@@ -37,6 +47,11 @@ const configureEnvironment = env => {
   }
 }
 
+/**
+ * Export our default environment configurations along
+ * with whatever configurations are returned specifically
+ * based on the current NODE_ENV of the server.
+ */
 export default {
   ...defaultConfig,
   ...configureEnvironment(process.env.NODE_ENV),
