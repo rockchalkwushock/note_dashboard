@@ -1,5 +1,5 @@
 import request from 'supertest';
-import server from '../../index';
+import server from '../../';
 
 /**
  * mockRoute(arg1, arg2, arg3)
@@ -15,6 +15,8 @@ import server from '../../index';
 export const mockRoute = (endpoint, route, data) => {
   switch (endpoint) {
     case '/sign-up': return request(server).post(route).send(data);
+    // TODO: Fill in the return value on the routes
+    // as test suite grows.
     case '/sign-in': return null;
     case '/check-token': return null;
     case '/new-note': return null;

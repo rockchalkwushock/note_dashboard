@@ -7,7 +7,7 @@ import {
   database,
   config,
   middlewares,
-} from './utils';
+} from './configs';
 
 // Create instance of Express.
 const app = new Express();

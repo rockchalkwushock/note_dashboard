@@ -6,7 +6,7 @@ import Raven from 'raven';
 import PrettyError from 'pretty-error';
 import HTTPStatus from 'http-status';
 
-import { config } from '../utils';
+import { config } from '../configs';
 import APIError, { RequiredError } from './errors';
 
 const isProd = process.env.NODE_ENV === 'production';

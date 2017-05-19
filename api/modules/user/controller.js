@@ -1,6 +1,7 @@
 import HTTPStatus from 'http-status';
 import User from './model';
-import { config, filterBody } from '../../utils';
+import { config } from '../../configs';
+import { filterBody } from '../../utils';
 
 /**
  * signUp(arg1, arg2, arg3)

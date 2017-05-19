@@ -5,7 +5,7 @@ import uniqueValidator from 'mongoose-unique-validator';
 import { hashSync, compareSync } from 'bcrypt-nodejs';
 import jwt from 'jsonwebtoken';
 
-import { config } from '../../utils';
+import { config } from '../../configs';
 
 const UserSchema = new Schema({
   email: {
