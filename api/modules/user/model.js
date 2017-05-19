@@ -19,7 +19,7 @@ const UserSchema = new Schema({
         return emailRegex.test(email);
       },
       message: '{VALUE} is not a valid email!',
-    }
+    },
   },
   password: {
     type: String,
@@ -113,9 +113,9 @@ UserSchema.methods = {
 let User;
 
 try {
-  User = mongoose.model('User');
+  User = mongoose.model('users');
 } catch (e) {
-  User = mongoose.model('User', UserSchema);
+  User = mongoose.model('users', UserSchema);
 }
 
 export default User;

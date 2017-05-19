@@ -6,6 +6,7 @@ import mongoose from 'mongoose'
  * database(arg)
  *
  * @param {String} conf Endpoint for Mongo to connect to.
+ * @returns connection to MongoDB based on environment.
  */
 export default conf => {
   mongoose.Promise = global.Promise;
