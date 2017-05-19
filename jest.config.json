@@ -7,7 +7,6 @@
     "./webpack.config.prod.js",
     "./api/configs",
     "./api/services/errors.js",
-    "./coverage/",
     "./build/",
     "./scripts/"
   ],
