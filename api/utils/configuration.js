@@ -29,6 +29,7 @@ const testConfig = {
 
 const defaultConfig = {
   ENDPOINT: '/api/v1',
+  SENTRY_DSN: process.env.SENTRY_DSN,
   PORT: process.env.PORT || 3000,
   WHITELIST,
 }
