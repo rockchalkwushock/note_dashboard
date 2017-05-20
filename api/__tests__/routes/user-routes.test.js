@@ -34,6 +34,14 @@ describe('User Module Routes', () => {
       });
     });
     describe('FAILED REQUEST', () => {
+      test('Signing in when not a user returns status of 401', async () => {
+        expect.assertions(2);
+        try {
+          const { status, text } = await mockRoute(`${endPoint1}`, `${ROOT}${endPoint1}`, { email: 'jabbaDaHutt@gmail.com', password: 'password1' });
+          expect(status).toEqual(401);
+          expect(text).toEqual('Unauthorized');
+        } catch (e) { throw e; }
+      })
       test('Improper credentials returns status of 401', async () => {
         expect.assertions(2);
         try {
