@@ -6,6 +6,12 @@ import Joi from 'joi';
  * the criteria we have required for the data sets.
  */
 export default {
+  signIn: {
+    body: {
+      email: Joi.string().email().required(),
+      password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
+    },
+  },
   signUp: {
     body: {
       email: Joi.string().email().required(),

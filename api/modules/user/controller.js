@@ -11,7 +11,7 @@ import { filterBody } from '../../utils';
  * @param {Object} req - data sent by user.
  * @param {Object} res - response object from server.
  * @param {Function}  next - prototype telling generator to continue or not.
- * @returns {Object} res = response object holding user or error message.
+ * @returns {Object} res - response object holding user or error message.
  */
 export const signUp = async (req, res, next) => {
   // Sanitize the provided data from user against Whitelist.
@@ -24,4 +24,19 @@ export const signUp = async (req, res, next) => {
     e.status = HTTPStatus.BAD_REQUEST;
     return next(e);
   }
+}
+
+/**
+ * signIn(arg1, arg2, arg3)
+ *
+ * Controller for authenticating a user against the database.
+ *
+ * @param {Object} req - data sent by user.
+ * @param {Object} res - response object from server.
+ * @param {Function} next - prototype telling generator to continue or not.
+ * @returns {Object} res - response object holding user or error message.
+ */
+export const signIn = async (req, res, next) => {
+  res.status(HTTPStatus.OK).json(req.user.toAuthJSON());
+  return next();
 }
