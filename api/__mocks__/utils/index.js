@@ -9,16 +9,18 @@ import server from '../../';
  *
  * @param {String} endpoint - The endpoint being tested.
  * @param {String} route - The full endpoint for supertest to make a request on.
+ * @param {Object} user - Fake user object.
  * @param {Object} data - The mock req.data object.
  * @returns {Object} res - Response Object.
  */
-export const mockRoute = (endpoint, route, data) => {
+export const mockRoute = (endpoint, route, user, data) => {
   switch (endpoint) {
-    case '/sign-up': return request(server).post(route).send(data);
-    // TODO: Fill in the return value on the routes
-    // as test suite grows.
-    case '/sign-in': return request(server).post(route).send(data);
-    case '/new-note': return null;
+    case '/sign-up':
+      return request(server).post(route).send(data);
+    case '/sign-in':
+      return request(server).post(route).send(data);
+    case '/new-note':
+      return request(server).post(route).set('Authorization', `JWT ${user.createToken()}`).send(data);
     case '/edit-note': return null;
     case '/delete-note': return null;
     case '/get-note': return null;
