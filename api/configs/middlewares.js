@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import methodOverride from 'method-override';
 import morgan from 'morgan';
+import passport from 'passport';
 
 import { apiRoutes } from '../modules';
 
@@ -14,6 +15,7 @@ export default app => {
   app.use(compression());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(passport.initialize());
   app.use(helmet());
   app.use(cors());
   app.use(methodOverride());
