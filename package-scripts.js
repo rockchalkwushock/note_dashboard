@@ -59,10 +59,10 @@ module.exports = {
     },
     test: {
       description: 'Run Jest test suite on code base.',
-      default: 'jest --config jest.config.json',
+      default: 'jest --config jest.config.json --runInBand',
       coverage: {
         description: 'Generate coverage data.',
-        script: series.nps('test --coverage'),
+        script: series.nps('test --coverage --silent'),
       },
       watch: {
         description: 'Watch test suite.',

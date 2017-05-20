@@ -1,9 +1,3 @@
-import config from './configuration'
-import database from './database';
-import middlewares from './middlewares';
+import { filterBody } from './filterBody';
 
-export {
-  config,
-  database,
-  middlewares,
-}
+export { filterBody }
