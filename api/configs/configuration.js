@@ -7,6 +7,9 @@ require('dotenv-safe').load();
  */
 
 const WHITELIST = {
+  notes: {
+    create: ['text', 'title'],
+  },
   users: {
     signUp: ['email', 'password'],
   },
