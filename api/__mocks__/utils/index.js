@@ -17,7 +17,7 @@ export const mockRoute = (endpoint, route, data) => {
     case '/sign-up': return request(server).post(route).send(data);
     // TODO: Fill in the return value on the routes
     // as test suite grows.
-    case '/sign-in': return null;
+    case '/sign-in': return request(server).post(route).send(data);
     case '/check-token': return null;
     case '/new-note': return null;
     case '/edit-note': return null;
