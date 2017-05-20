@@ -26,7 +26,7 @@ describe('User Module Routes', () => {
       test('Signing in returns a status of 200', async () => {
         expect.assertions(3);
         try {
-          const { body, status } = await mockRoute(`${endPoint1}`, `${ROOT}${endPoint1}`, { email: testUser.email, password: 'password1' });
+          const { body, status } = await mockRoute(`${endPoint1}`, `${ROOT}${endPoint1}`, null, { email: testUser.email, password: 'password1' });
           expect(status).toEqual(200);
           expect(body._id).toEqual(testUser._id.toString());
           expect(body).toHaveProperty('token');
@@ -37,7 +37,7 @@ describe('User Module Routes', () => {
       test('Signing in when not a user returns status of 401', async () => {
         expect.assertions(2);
         try {
-          const { status, text } = await mockRoute(`${endPoint1}`, `${ROOT}${endPoint1}`, { email: 'jabbaDaHutt@gmail.com', password: 'password1' });
+          const { status, text } = await mockRoute(`${endPoint1}`, `${ROOT}${endPoint1}`, null, { email: 'jabbaDaHutt@gmail.com', password: 'password1' });
           expect(status).toEqual(401);
           expect(text).toEqual('Unauthorized');
         } catch (e) { throw e; }
@@ -45,7 +45,7 @@ describe('User Module Routes', () => {
       test('Improper credentials returns status of 401', async () => {
         expect.assertions(2);
         try {
-          const { status, text } = await mockRoute(`${endPoint1}`, `${ROOT}${endPoint1}`, { email: testUser.email, password: 'cheating' });
+          const { status, text } = await mockRoute(`${endPoint1}`, `${ROOT}${endPoint1}`, null, { email: testUser.email, password: 'cheating' });
           expect(status).toEqual(401);
           expect(text).toEqual('Unauthorized');
         } catch (e) { throw e; }
@@ -61,7 +61,7 @@ describe('User Module Routes', () => {
         // https://facebook.github.io/jest/docs/en/expect.html#expectassertionsnumber
         expect.assertions(3);
         try {
-          const { body, status } = await mockRoute(`${endPoint2}`, `${ROOT}${endPoint2}`, UserFactory.generate());
+          const { body, status } = await mockRoute(`${endPoint2}`, `${ROOT}${endPoint2}`, null, UserFactory.generate());
           expect(status).toEqual(201);
           expect(body).toHaveProperty('_id');
           expect(body).toHaveProperty('token');
@@ -72,7 +72,7 @@ describe('User Module Routes', () => {
       test('Registering an existing user returns status of 400', async () => {
         expect.assertions(3);
         try {
-          const { body, status } = await mockRoute(`${endPoint2}`, `${ROOT}${endPoint2}`, { email: testUser.email, password: 'password1' });
+          const { body, status } = await mockRoute(`${endPoint2}`, `${ROOT}${endPoint2}`, null, { email: testUser.email, password: 'password1' });
           expect(status).toEqual(400);
           expect(body.message).toEqual('users validation failed');
           expect(body.errors.email).toEqual(`${testUser.email} already taken!`);
@@ -81,7 +81,7 @@ describe('User Module Routes', () => {
       test('No Email returns status of 400', async () => {
         expect.assertions(2);
         try {
-          const { body, status } = await mockRoute(`${endPoint2}`, `${ROOT}${endPoint2}`, { password: 'password1' });
+          const { body, status } = await mockRoute(`${endPoint2}`, `${ROOT}${endPoint2}`, null, { password: 'password1' });
           expect(status).toEqual(400);
           expect(body.message).toEqual('validation error');
         } catch (e) { throw e; };
@@ -89,7 +89,7 @@ describe('User Module Routes', () => {
       test('No Password returns status of 400', async () => {
         expect.assertions(2);
         try {
-          const { body, status } = await mockRoute(`${endPoint2}`, `${ROOT}${endPoint2}`, { email: testUser.email });
+          const { body, status } = await mockRoute(`${endPoint2}`, `${ROOT}${endPoint2}`, null, { email: testUser.email });
           expect(status).toEqual(400);
           expect(body.message).toEqual('validation error');
         } catch (e) { throw e; };
@@ -97,7 +97,7 @@ describe('User Module Routes', () => {
       test('Invalid Email returns status of 400', async () => {
         expect.assertions(3);
         try {
-          const { body, status } = await mockRoute(`${endPoint2}`, `${ROOT}${endPoint2}`, { email: 'user@test', password: 'password1' });
+          const { body, status } = await mockRoute(`${endPoint2}`, `${ROOT}${endPoint2}`, null, { email: 'user@test', password: 'password1' });
           expect(status).toEqual(400);
           expect(body.message).toEqual('users validation failed');
           expect(body.errors.email).toEqual('user@test is not a valid email!');
@@ -106,7 +106,7 @@ describe('User Module Routes', () => {
       test('Improper length on password returns status of 400', async () => {
         expect.assertions(2);
         try {
-          const { body, status } = await mockRoute(`${endPoint2}`, `${ROOT}${endPoint2}`, { email: '123@test.com', password: 'pas' });
+          const { body, status } = await mockRoute(`${endPoint2}`, `${ROOT}${endPoint2}`, null, { email: '123@test.com', password: 'pas' });
           expect(status).toEqual(400);
           expect(body.message).toEqual('validation error');
         } catch (e) { throw e; };
