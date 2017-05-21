@@ -1,7 +1,7 @@
 import HTTPStatus from 'http-status';
 
 import { config } from '../../configs';
-import { filterBody } from '../../utils';
+import { filterBody, validateAuthorToUser } from '../../utils';
 import Note from './model';
 
 
@@ -20,14 +20,24 @@ export const editNote = async (req, res, next) => {
   const filteredBody = filterBody(req.body, config.WHITELIST.notes.update);
   try {
     const note = await Note.findById(req.params.id);
-    if (note.author.toString() !== req.user._id.toString()) {
-      return res.sendStatus(HTTPStatus.UNAUTHORIZED);
-    }
+    validateAuthorToUser(req, res, note);
     Object.keys(filteredBody).forEach(key => {
       note[key] = filteredBody[key];
     });
     const updatedNote = await note.save();
     return res.status(HTTPStatus.OK).json(updatedNote);
+  } catch (e) {
+    e.status = HTTPStatus.BAD_REQUEST;
+    return next(e);
+  }
+}
+
+export const deleteNote = async (req, res, next) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    validateAuthorToUser(req, res, note);
+    await note.remove();
+    return res.sendStatus(HTTPStatus.OK);
   } catch (e) {
     e.status = HTTPStatus.BAD_REQUEST;
     return next(e);

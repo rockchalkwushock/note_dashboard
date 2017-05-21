@@ -3,6 +3,7 @@ import validate from 'express-validation';
 
 import {
   createNote,
+  deleteNote,
   editNote,
 } from './controller';
 import valid from './validation';
@@ -21,7 +22,7 @@ const routes = new Router();
  */
 routes.post('/', authJwt, validate(valid.createNote), createNote);
 routes.patch('/:id', authJwt, validate(valid.editNote), editNote);
-// routes.delete('/:id', authJwt, );
+routes.delete('/:id', authJwt, deleteNote);
 // routes.get('/:id', authJwt, );
 // routes.get('/', authJwt, )
 
