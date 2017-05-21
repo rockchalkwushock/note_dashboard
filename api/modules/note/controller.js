@@ -57,3 +57,20 @@ export const noteById = async (req, res, next) => {
     return next(e);
   }
 }
+
+export const allNotes = async (req, res, next) => {
+  try {
+    const promise = await Promise.all([
+      User.findById(req.user._id),
+      Note.list({ skip: req.query.skip, limit: req.query.limit })
+    ]);
+    const notes = promise[1].reduce((arr, note) => {
+      arr.push({ ...note.toJSON() });
+      return arr;
+    }, []);
+    return res.status(HTTPStatus.OK).json(notes);
+  } catch (e) {
+    e.status = HTTPStatus.BAD_REQUEST;
+    return next(e);
+  }
+}

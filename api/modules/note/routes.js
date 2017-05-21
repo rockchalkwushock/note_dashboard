@@ -2,6 +2,7 @@ import { Router } from 'express';
 import validate from 'express-validation';
 
 import {
+  allNotes,
   createNote,
   deleteNote,
   editNote,
@@ -25,6 +26,6 @@ routes.post('/', authJwt, validate(valid.createNote), createNote);
 routes.patch('/:id', authJwt, validate(valid.editNote), editNote);
 routes.delete('/:id', authJwt, deleteNote);
 routes.get('/:id', authJwt, noteById);
-// routes.get('/', authJwt, )
+routes.get('/', authJwt, allNotes);
 
 export default routes;
