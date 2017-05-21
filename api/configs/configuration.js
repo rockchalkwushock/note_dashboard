@@ -9,6 +9,7 @@ require('dotenv-safe').load();
 const WHITELIST = {
   notes: {
     create: ['text', 'title'],
+    update: ['text', 'title'],
   },
   users: {
     signUp: ['email', 'password'],

@@ -1,7 +1,10 @@
 import { Router } from 'express';
 import validate from 'express-validation';
 
-import { createNote } from './controller';
+import {
+  createNote,
+  editNote,
+} from './controller';
 import valid from './validation';
 import { authJwt } from '../../services';
 
@@ -17,5 +20,9 @@ const routes = new Router();
  * 4. Provide the data to the controller method.
  */
 routes.post('/', authJwt, validate(valid.createNote), createNote);
+routes.patch('/:id', authJwt, validate(valid.editNote), editNote);
+// routes.delete('/:id', authJwt, );
+// routes.get('/:id', authJwt, );
+// routes.get('/', authJwt, )
 
 export default routes;

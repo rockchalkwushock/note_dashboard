@@ -12,4 +12,10 @@ export default {
       text: Joi.string().required(),
     },
   },
+  editNote: {
+    body: {
+      title: Joi.string().min(3),
+      text: Joi.string(),
+    },
+  }
 };
