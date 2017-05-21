@@ -1,17 +1,17 @@
 {
   "bail": true,
   "testEnvironment": "node",
-  "collectCoverageFrom": ["src/**/*.js"],
+  "collectCoverageFrom": ["api/**/*.js"],
   "coveragePathIgnorePatterns": [
     "./webpack.config.dev.js",
     "./webpack.config.prod.js",
-    "./coverage/",
-    "./build/",
+    "./api/configs",
+    "./api/services/errors.js",
     "./scripts/"
   ],
   "coverageThreshold": {
     "global": {
-      "branches": 70,
+      "branches": 60,
       "functions": 70,
       "lines": 70,
       "statements": 70

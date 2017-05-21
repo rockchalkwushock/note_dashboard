@@ -27,7 +27,7 @@ module.exports = {
     },
     clean: {
       description: 'Clean repository of generated directories & files.',
-      script: series(rimraf('coverage'), rimraf('build'))
+      script: series(rimraf('build'), rimraf('coverage'), rimraf('doc'))
     },
     commit: {
       description: 'Run commitizen-cli for creating clean commit messages.',
@@ -36,6 +36,14 @@ module.exports = {
     deploy: {
       description: 'Deploying instance to Zeit Servers.',
       script: 'now -e MONGODB=@mongodb',
+    },
+    docs: {
+      description: 'Documenting the API.',
+      default: 'apidoc -i api',
+      deploy: {
+        description: 'Deploying the documentation on surge.',
+        script: series.nps('docs', `surge ./doc -d ${process.env.DOCS_WEBSITE}`),
+      },
     },
     lint: {
       description: 'Lint code base.',
@@ -59,10 +67,10 @@ module.exports = {
     },
     test: {
       description: 'Run Jest test suite on code base.',
-      default: 'jest --config jest.config.json',
+      default: 'jest --config jest.config.json --runInBand',
       coverage: {
         description: 'Generate coverage data.',
-        script: series.nps('test --coverage'),
+        script: series.nps('test --coverage --silent'),
       },
       watch: {
         description: 'Watch test suite.',
