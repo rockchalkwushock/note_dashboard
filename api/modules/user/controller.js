@@ -4,14 +4,34 @@ import { config } from '../../configs';
 import { filterBody } from '../../utils';
 
 /**
- * signUp(arg1, arg2, arg3)
+ * @api {post} /users/sign-up Create a user.
+ * @apiDescription Create an authenticated user in the database.
+ * @apiName createUser
+ * @apiGroup User
  *
- * Controller for creating an authenticated user.
+ * @apiParam (Body) {String} email User's email.
+ * @apiParam (Body) {String} password User's password.
  *
- * @param {Object} req - data sent by user.
- * @param {Object} res - response object from server.
- * @param {Function}  next - prototype telling generator to continue or not.
- * @returns {Object} res - response object holding user or error message.
+ * @apiSuccess {Number} status Status of the Request.
+ * @apiSuccess {String} _id User's _id in database.
+ * @apiSuccess {String} token JWT Authentication token.
+ *
+ * @apiSuccessExample Success-Response:
+ *
+ * HTTP/1.1 200 0K
+ *
+ * {
+ *  _id: '123',
+ *  token: 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OTBhMWI3ODAzMDI3N2NiNjQxM2JhZGUiLCJpYXQiOjE0OTM4MzQ2MTZ9.RSlMF6RRwAALZQRdfKrOZWnuHBk-mQNnRcCLJsc8zio',
+ * }
+ *
+ * @apiErrorExample {json} Error
+ *
+ * HTTP/1.1 400 Bad Request
+ *
+ * {
+ *  email: 'email is required',
+ * }
  */
 export const signUp = async (req, res, next) => {
   // Sanitize the provided data from user against Whitelist.
@@ -27,14 +47,34 @@ export const signUp = async (req, res, next) => {
 }
 
 /**
- * signIn(arg1, arg2, arg3)
+ * @api {post} /users/sign-in Authenticate User.
+ * @apiDescription Authenticate user against database.
+ * @apiName signinUser
+ * @apiGroup User
  *
- * Controller for authenticating a user against the database.
+ * @apiParam (Body) {String} email User's email.
+ * @apiParam (Body) {String} password User's password.
  *
- * @param {Object} req - data sent by user.
- * @param {Object} res - response object from server.
- * @param {Function} next - prototype telling generator to continue or not.
- * @returns {Object} res - response object holding user or error message.
+ * @apiSuccess {Number} status Status of the Request.
+ * @apiSuccess {String} _id User's _id in database.
+ * @apiSuccess {String} token JWT Authentication token.
+ *
+ * @apiSuccessExample Success-Response:
+ *
+ * HTTP/1.1 200 0K
+ *
+ * {
+ *  _id: '123',
+ *  token: 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OTBhMWI3ODAzMDI3N2NiNjQxM2JhZGUiLCJpYXQiOjE0OTM4MzQ2MTZ9.RSlMF6RRwAALZQRdfKrOZWnuHBk-mQNnRcCLJsc8zio',
+ * }
+ *
+ * @apiErrorExample {json} Error
+ *
+ * HTTP/1.1 400 Bad Request
+ *
+ * {
+ *  email: 'email is required',
+ * }
  */
 export const signIn = async (req, res, next) => {
   res.status(HTTPStatus.OK).json(req.user.toAuthJSON());

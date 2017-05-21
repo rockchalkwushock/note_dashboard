@@ -27,7 +27,7 @@ module.exports = {
     },
     clean: {
       description: 'Clean repository of generated directories & files.',
-      script: series(rimraf('coverage'), rimraf('build'))
+      script: series(rimraf('build'), rimraf('coverage'), rimraf('doc'))
     },
     commit: {
       description: 'Run commitizen-cli for creating clean commit messages.',
@@ -36,6 +36,14 @@ module.exports = {
     deploy: {
       description: 'Deploying instance to Zeit Servers.',
       script: 'now -e MONGODB=@mongodb',
+    },
+    docs: {
+      description: 'Documenting the API.',
+      default: 'apidoc -i api',
+      deploy: {
+        description: 'Deploying the documentation on surge.',
+        script: series.nps('docs', `surge ./doc -d ${process.env.DOCS_WEBSITE}`),
+      },
     },
     lint: {
       description: 'Lint code base.',
