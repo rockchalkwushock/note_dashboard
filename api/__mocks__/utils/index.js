@@ -22,10 +22,14 @@ export const mockRoute = (action, route, user, data) => {
     case 'create-note':
       return request(server).post(route).set('Authorization', `JWT ${user.createToken()}`).send(data);
     case 'update-note':
-      return request(server).post(route).set('Authorization', `JWT ${user.createToken()}`).send(data);
+      return request(server).patch(route).set('Authorization', `JWT ${user.createToken()}`).send(data);
     case 'delete-note': return null;
     case 'get-note': return null;
     case 'get-notes': return null;
+    case 'invalid-jwt-post':
+      return request(server).post(route).set('Authorization', 'JWT maliciousEntry').send(data);
+    case 'invalid-jwt-patch':
+      return request(server).patch(route).set('Authorization', 'JWT maliciousEntry').send(data);
     case '*': return request(server).get(route);
     default: return 'Oops you screwed something up!';
   }
