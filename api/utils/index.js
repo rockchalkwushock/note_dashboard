@@ -1,5 +1,7 @@
-import middlewares from './middlewares';
+import { filterBody } from './filterBody';
+import { validateAuthorToUser } from './validateAuthorToUser';
 
 export {
-  middlewares,
-}
+  filterBody,
+  validateAuthorToUser,
+};
