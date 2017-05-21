@@ -63,6 +63,7 @@
     "redux-thunk": "~2.2.0"
   },
   "devDependencies": {
+    "apidoc": "~0.17.6",
     "autoprefixer": "~7.1.0",
     "babel-cli": "~6.24.1",
     "babel-core": "~6.24.1",
