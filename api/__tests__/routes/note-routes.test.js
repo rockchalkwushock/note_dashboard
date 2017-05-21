@@ -9,7 +9,6 @@ import server from '../../';
 
 // Store endpoint that will be tested.
 const ROOT = `${config.ENDPOINT}/notes`;
-const endPoint1 = '/new-note';
 let testUser;
 let testNote;
 
@@ -25,12 +24,12 @@ describe('Note Module Routes', () => {
   });
   // Before each test is ran populate a testNote.
   beforeEach(() => { testNote = NoteFactory.generate(); });
-  describe(`POST: ${endPoint1}`, () => {
+  describe('POST: /notes/', () => {
     describe('SUCCESSFUL REQUEST', () => {
       test('Creating a note returns a status of 201', async () => {
         expect.assertions(6);
         try {
-          const { body, status } = await mockRoute(`${endPoint1}`, `${ROOT}${endPoint1}`, testUser, testNote);
+          const { body, status } = await mockRoute('create-note', `${ROOT}/`, testUser, testNote);
           expect(status).toEqual(201);
           expect(body.text).toEqual(testNote.text);
           expect(body.title).toEqual(testNote.title);

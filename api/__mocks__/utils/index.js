@@ -7,24 +7,25 @@ import server from '../../';
  * Helper function for mocking endpoints
  * with fake user data.
  *
- * @param {String} endpoint - The endpoint being tested.
+ * @param {String} action - The action being tested.
  * @param {String} route - The full endpoint for supertest to make a request on.
  * @param {Object} user - Fake user object.
  * @param {Object} data - The mock req.data object.
  * @returns {Object} res - Response Object.
  */
-export const mockRoute = (endpoint, route, user, data) => {
-  switch (endpoint) {
-    case '/sign-up':
+export const mockRoute = (action, route, user, data) => {
+  switch (action) {
+    case 'signup':
       return request(server).post(route).send(data);
-    case '/sign-in':
+    case 'signin':
       return request(server).post(route).send(data);
-    case '/new-note':
+    case 'create-note':
       return request(server).post(route).set('Authorization', `JWT ${user.createToken()}`).send(data);
-    case '/edit-note': return null;
-    case '/delete-note': return null;
-    case '/get-note': return null;
-    case '/get-notes': return null;
+    case 'update-note':
+      return request(server).post(route).set('Authorization', `JWT ${user.createToken()}`).send(data);
+    case 'delete-note': return null;
+    case 'get-note': return null;
+    case 'get-notes': return null;
     case '*': return request(server).get(route);
     default: return 'Oops you screwed something up!';
   }

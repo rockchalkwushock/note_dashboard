@@ -16,6 +16,6 @@ const routes = new Router();
  *    the Joi validation object.
  * 4. Provide the data to the controller method.
  */
-routes.post('/new-note', authJwt, validate(valid.createNote), createNote);
+routes.post('/', authJwt, validate(valid.createNote), createNote);
 
 export default routes;
