@@ -2,6 +2,7 @@ import { Router } from 'express';
 import HTTPStatus from 'http-status';
 
 // Import all routes for the API here.
+import { noteRoutes } from './note';
 import { userRoutes } from './user';
 
 // Middlewares
@@ -10,6 +11,7 @@ import { APIError, logErrorService } from '../services';
 const routes = new Router();
 
 // Create sub-routes for specific modules.
+routes.use('/notes', noteRoutes);
 routes.use('/users', userRoutes);
 
 // Handle the case of all routes NOT defined.

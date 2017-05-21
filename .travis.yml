@@ -9,7 +9,7 @@ branches:
   only:
     - master
     - development
-    - feat/user
+    - feat/notes
 script:
   # lint, test, generate coverage
   - yarn start validate.withCoverage
