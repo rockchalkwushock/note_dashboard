@@ -27,7 +27,8 @@ export const mockRoute = (action, route, user, data) => {
       return request(server).delete(route).set('Authorization', `JWT ${user.createToken()}`);
     case 'get-note':
       return request(server).get(route).set('Authorization', `JWT ${user.createToken()}`);
-    case 'get-notes': return null;
+    case 'get-notes':
+      return request(server).get(route).set('Authorization', `JWT ${user.createToken()}`);
     case 'invalid-jwt-post':
       return request(server).post(route).set('Authorization', 'JWT maliciousEntry').send(data);
     case 'invalid-jwt-patch':
