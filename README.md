@@ -3,7 +3,7 @@
 [![Travis](https://img.shields.io/travis/rockchalkwushock/note_dashboard.svg?branch=master&style=flat-square)](https://travis-ci.org/rockchalkwushock/note_dashboard)
 [![Codecov](https://img.shields.io/codecov/c/github/rockchalkwushock/note_dashboard.svg?style=flat-square)](https://codecov.io/gh/rockchalkwushock/note_dashboard)
 
-[![API Docs](https://img.shields.io/badge/apidocs-hosted%20on%20surge-orange.svg?style=flat-square)](picayune-fold.surge.sh)
+[![API Docs](https://img.shields.io/badge/apidocs-hosted%20on%20surge-orange.svg?style=flat-square)](http://picayune-fold.surge.sh)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/rockchalkwushock/how-to-open-source/pulls)
 
@@ -19,7 +19,7 @@ React-Capstone: Help
 ## Table of Contents
 
 1. [FYI](#fyi)
-1. [API Documentation](picayune-fold.surge.sh)
+1. [API Documentation](http://picayune-fold.surge.sh)
 1. [Configurations](https://github.com/rockchalkwushock/note_dashboard/blob/master/docs/Configurations.md)
 1. [License](#license)
 
