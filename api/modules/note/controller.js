@@ -3,6 +3,7 @@ import HTTPStatus from 'http-status';
 import { config } from '../../configs';
 import { filterBody, validateAuthorToUser } from '../../utils';
 import Note from './model';
+import { User } from '../user';
 
 
 export const createNote = async (req, res, next) => {
@@ -38,6 +39,19 @@ export const deleteNote = async (req, res, next) => {
     validateAuthorToUser(req, res, note);
     await note.remove();
     return res.sendStatus(HTTPStatus.OK);
+  } catch (e) {
+    e.status = HTTPStatus.BAD_REQUEST;
+    return next(e);
+  }
+}
+
+export const noteById = async (req, res, next) => {
+  try {
+    const promise = await Promise.all([
+      User.findById(req.user._id),
+      Note.findById(req.params.id).populate('author'),
+    ]);
+    return res.status(HTTPStatus.OK).json({ ...promise[1].toJSON() });
   } catch (e) {
     e.status = HTTPStatus.BAD_REQUEST;
     return next(e);

@@ -25,7 +25,8 @@ export const mockRoute = (action, route, user, data) => {
       return request(server).patch(route).set('Authorization', `JWT ${user.createToken()}`).send(data);
     case 'delete-note':
       return request(server).delete(route).set('Authorization', `JWT ${user.createToken()}`);
-    case 'get-note': return null;
+    case 'get-note':
+      return request(server).get(route).set('Authorization', `JWT ${user.createToken()}`);
     case 'get-notes': return null;
     case 'invalid-jwt-post':
       return request(server).post(route).set('Authorization', 'JWT maliciousEntry').send(data);
@@ -33,6 +34,8 @@ export const mockRoute = (action, route, user, data) => {
       return request(server).patch(route).set('Authorization', 'JWT maliciousEntry').send(data);
     case 'invalid-jwt-delete':
       return request(server).delete(route).set('Authorization', 'JWT maliciousEntry');
+    case 'invalid-jwt-get':
+      return request(server).get(route).set('Authorization', 'JWT maliciousEntry');
     case '*': return request(server).get(route);
     default: return 'Oops you screwed something up!';
   }

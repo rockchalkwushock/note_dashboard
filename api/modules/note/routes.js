@@ -5,6 +5,7 @@ import {
   createNote,
   deleteNote,
   editNote,
+  noteById,
 } from './controller';
 import valid from './validation';
 import { authJwt } from '../../services';
@@ -23,7 +24,7 @@ const routes = new Router();
 routes.post('/', authJwt, validate(valid.createNote), createNote);
 routes.patch('/:id', authJwt, validate(valid.editNote), editNote);
 routes.delete('/:id', authJwt, deleteNote);
-// routes.get('/:id', authJwt, );
+routes.get('/:id', authJwt, noteById);
 // routes.get('/', authJwt, )
 
 export default routes;
