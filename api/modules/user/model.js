@@ -1,53 +1,57 @@
 /* eslint-disable import/no-mutable-exports */
 
-import mongoose, { Schema } from 'mongoose';
-import uniqueValidator from 'mongoose-unique-validator';
-import { hashSync, compareSync } from 'bcrypt-nodejs';
-import jwt from 'jsonwebtoken';
+import mongoose, { Schema } from 'mongoose'
+import uniqueValidator from 'mongoose-unique-validator'
+import { hashSync, compareSync } from 'bcrypt-nodejs'
+import jwt from 'jsonwebtoken'
 
-import { config } from '../../configs';
+import { config } from '../../configs'
 
-const UserSchema = new Schema({
-  email: {
-    type: String,
-    unique: true,
-    required: [true, 'Email is required!'],
-    trim: true,
-    validate: {
-      validator(email) {
-        const emailRegex = /^[-a-z0-9%S_+]+(\.[-a-z0-9%S_+]+)*@(?:[a-z0-9-]{1,63}\.){1,125}[a-z]{2,63}$/i;
-        return emailRegex.test(email);
-      },
-      message: '{VALUE} is not a valid email!',
+const UserSchema = new Schema(
+  {
+    email: {
+      type: String,
+      unique: true,
+      required: [true, 'Email is required!'],
+      trim: true,
+      validate: {
+        validator(email) {
+          const emailRegex = /^[-a-z0-9%S_+]+(\.[-a-z0-9%S_+]+)*@(?:[a-z0-9-]{1,63}\.){1,125}[a-z]{2,63}$/i
+          return emailRegex.test(email)
+        },
+        message: '{VALUE} is not a valid email!'
+      }
     },
-  },
-  password: {
-    type: String,
+    password: {
+      type: String,
       required: [true, 'Password is required!'],
       trim: true,
       minlength: [6, 'Password need to be longer!'],
       validate: {
         validator(password) {
-          return password.length >= 6 && password.match(/\d+/g);
-        },
-      },
-  }
-}, { timestamps: true })
+          return password.length >= 6 && password.match(/\d+/g)
+        }
+      }
+    }
+  },
+  { timestamps: true }
+)
 
 UserSchema.plugin(uniqueValidator, {
-  message: '{VALUE} already taken!',
-});
+  message: '{VALUE} already taken!'
+})
 
 // Prior to saving the user to the database
 // hash the password, we want to save an encrypted
 // version of the password NOT the submitted string.
 UserSchema.pre('save', function(next) {
   if (this.isModified('password')) {
-    this.password = this._hashPassword(this.password);
-    return next();
+    this.password = this._hashPassword(this.password)
+    return next()
   }
-  return next();
-});
+  /* istanbul ignore next */
+  return next()
+})
 
 // Many thanks to @EQuimper for the following methods
 // Can be found at:
@@ -61,7 +65,7 @@ UserSchema.methods = {
    * @returns {Boolean} isMatch - password match
    */
   authenticateUser(password) {
-    return compareSync(password, this.password);
+    return compareSync(password, this.password)
   },
   /**
    * Hash the user password
@@ -71,7 +75,7 @@ UserSchema.methods = {
    * @returns {String} password - hash password
    */
   _hashPassword(password) {
-    return hashSync(password);
+    return hashSync(password)
   },
   /**
    * Generate a jwt token for authentication
@@ -80,7 +84,7 @@ UserSchema.methods = {
    * @returns {String} token - JWT token
    */
   createToken() {
-    return jwt.sign({ _id: this._id }, config.JWT_SECRET);
+    return jwt.sign({ _id: this._id }, config.JWT_SECRET)
   },
 
   /**
@@ -92,8 +96,8 @@ UserSchema.methods = {
   toAuthJSON() {
     return {
       _id: this._id,
-      token: `JWT ${this.createToken()}`,
-    };
+      token: `JWT ${this.createToken()}`
+    }
   },
 
   /**
@@ -105,17 +109,17 @@ UserSchema.methods = {
   toJSON() {
     return {
       _id: this._id,
-      username: this.username,
-    };
-  },
-};
-
-let User;
-
-try {
-  User = mongoose.model('users');
-} catch (e) {
-  User = mongoose.model('users', UserSchema);
+      username: this.username
+    }
+  }
 }
 
-export default User;
+let User
+
+try {
+  User = mongoose.model('users')
+} catch (e) {
+  User = mongoose.model('users', UserSchema)
+}
+
+export default User

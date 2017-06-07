@@ -1,30 +1,33 @@
 /* eslint-disable import/no-mutable-exports */
 
-import mongoose, { Schema } from 'mongoose';
-import uniqueValidator from 'mongoose-unique-validator';
+import mongoose, { Schema } from 'mongoose'
+import uniqueValidator from 'mongoose-unique-validator'
 
-const NoteSchema = new Schema({
-  title: {
-    type: String,
-    trim: true,
-    required: [true, 'Title is required!'],
-    minlength: [3, 'Title must be longer!'],
-    unique: true,
+const NoteSchema = new Schema(
+  {
+    title: {
+      type: String,
+      trim: true,
+      required: [true, 'Title is required!'],
+      minlength: [3, 'Title must be longer!'],
+      unique: true
+    },
+    text: {
+      type: String,
+      required: [true, 'Some text are required!']
+    },
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: 'users',
+      required: [true, 'Author is required!']
+    }
   },
-  text: {
-    type: String,
-    required: [true, 'Some text are required!'],
-  },
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: 'users',
-    required: [true, 'Author is required!'],
-  }
-}, { timestamps: true });
+  { timestamps: true }
+)
 
 NoteSchema.plugin(uniqueValidator, {
-  message: '{VALUE} already taken!',
-});
+  message: '{VALUE} already taken!'
+})
 
 NoteSchema.statics = {
   /**
@@ -38,8 +41,8 @@ NoteSchema.statics = {
   createNote(args, userId) {
     return this.create({
       ...args,
-      author: userId,
-    });
+      author: userId
+    })
   },
   /**
    * Generate a list of notes limiting it to 10.
@@ -61,7 +64,7 @@ NoteSchema.statics = {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
-      .populate('author');
+      .populate('author')
   }
 }
 
@@ -78,17 +81,17 @@ NoteSchema.methods = {
       title: this.title,
       text: this.text,
       author: this.author,
-      createdAt: this.createdAt,
-    };
-  },
-};
-
-let Note;
-
-try {
-  Note = mongoose.model('notes');
-} catch (e) {
-  Note = mongoose.model('notes', NoteSchema);
+      createdAt: this.createdAt
+    }
+  }
 }
 
-export default Note;
+let Note
+
+try {
+  Note = mongoose.model('notes')
+} catch (e) {
+  Note = mongoose.model('notes', NoteSchema)
+}
+
+export default Note
