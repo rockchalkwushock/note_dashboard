@@ -2,15 +2,15 @@
  * Error handler for api routes
  */
 
-import Raven from 'raven';
-import PrettyError from 'pretty-error';
-import HTTPStatus from 'http-status';
+import Raven from 'raven'
+import PrettyError from 'pretty-error'
+import HTTPStatus from 'http-status'
 
-import { config } from '../configs';
-import APIError, { RequiredError } from './errors';
+import { config } from '../configs'
+import APIError, { RequiredError } from './errors'
 
-const isProd = process.env.NODE_ENV === 'production';
-const isDev = process.env.NODE_ENV === 'development';
+const isProd = process.env.NODE_ENV === 'production'
+const isDev = process.env.NODE_ENV === 'development'
 
 // eslint-disable-next-line no-unused-vars
 export default (err, req, res, next) => {
@@ -18,41 +18,41 @@ export default (err, req, res, next) => {
     return new APIError(
       'Error with the server!',
       HTTPStatus.INTERNAL_SERVER_ERROR,
-      true,
-    );
+      true
+    )
   }
-
+  /* istanbul ignore if  */
   if (isProd) {
-    const raven = new Raven.Client(config.SENTRY_DSN);
-    raven.captureException(err);
+    const raven = new Raven.Client(config.SENTRY_DSN)
+    raven.captureException(err)
   }
-
+  /* istanbul ignore if  */
   if (isDev) {
-    const pe = new PrettyError();
-    pe.skipNodeFiles();
-    pe.skipPackage('express');
+    const pe = new PrettyError()
+    pe.skipNodeFiles()
+    pe.skipPackage('express')
 
     // eslint-disable-next-line no-console
-    console.log(pe.render(err));
+    console.log(pe.render(err))
   }
 
   const error = {
-    message: err.message || 'Internal Server Error.',
-  };
+    message: err.message || 'Internal Server Error.'
+  }
 
   if (err.errors) {
-    error.errors = {};
-    const { errors } = err;
+    error.errors = {}
+    const { errors } = err
     if (Array.isArray(errors)) {
-      error.errors = RequiredError.makePretty(errors);
+      error.errors = RequiredError.makePretty(errors)
     } else {
       Object.keys(errors).forEach(key => {
-        error.errors[key] = errors[key].message;
-      });
+        error.errors[key] = errors[key].message
+      })
     }
   }
 
-  res.status(err.status || HTTPStatus.INTERNAL_SERVER_ERROR).json(error);
+  res.status(err.status || HTTPStatus.INTERNAL_SERVER_ERROR).json(error)
 
-  return next();
+  return next()
 }
