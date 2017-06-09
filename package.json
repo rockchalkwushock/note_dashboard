@@ -15,7 +15,7 @@
     "dev": "nps start.dev",
     "now-build": "nps client",
     "now-start": "nps api",
-    "precommit": "lint-staged && nps validate",
+    "precommit": "lint-staged",
     "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --no-semi --use-tabs",
     "prod": "nps start",
     "start": "nps",
@@ -28,7 +28,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "yarn prettier",
+      "npm run prettier",
       "git add"
     ]
   },
@@ -57,6 +57,8 @@
     "raven": "~2.0.2",
     "react": "~15.5.4",
     "react-dom": "~15.5.4",
+    "react-draggable": "^2.2.6",
+    "react-fontawesome": "^1.6.1",
     "react-redux": "~5.0.5",
     "react-router-redux": "~4.0.8",
     "redux": "~3.6.0",
