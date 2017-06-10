@@ -1,9 +1,13 @@
 import {
   authReducer as reducer,
+  createUser,
   CREATE_USER,
+  fetchError,
   FETCH_ERROR,
+  fetchUser,
   FETCH_USER,
   initialState,
+  logoutUser,
   LOGOUT_USER
 } from '../auth'
 
@@ -94,6 +98,43 @@ describe('Auth Module', () => {
       expect(actual).toHaveProperty('isLoggedIn', false)
       expect(actual).toHaveProperty('token', null)
       expect(actual).toHaveProperty('user', null)
+    })
+  })
+
+  describe('Actions', () => {
+    const data = {}
+
+    test('should yield FETCH_USER & payload', () => {
+      expect.assertions(3)
+      actual = fetchUser(data)
+      expected = { type: FETCH_USER, payload: data }
+      expect(actual).toMatchObject(expected)
+      expect(actual).toHaveProperty('type', FETCH_USER)
+      expect(actual).toHaveProperty('payload', data)
+    })
+    test('should yield CREATE_USER & payload', () => {
+      expect.assertions(3)
+      actual = createUser(data)
+      expected = { type: CREATE_USER, payload: data }
+      expect(actual).toMatchObject(expected)
+      expect(actual).toHaveProperty('type', CREATE_USER)
+      expect(actual).toHaveProperty('payload', data)
+    })
+    test('should yield FETCH_ERROR & payload', () => {
+      expect.assertions(3)
+      actual = fetchError(data)
+      expected = { type: FETCH_ERROR, payload: data }
+      expect(actual).toMatchObject(expected)
+      expect(actual).toHaveProperty('type', FETCH_ERROR)
+      expect(actual).toHaveProperty('payload', data)
+    })
+    test('should yield LOGOUT_USER & payload', () => {
+      expect.assertions(3)
+      actual = logoutUser(data)
+      expected = { type: LOGOUT_USER, payload: data }
+      expect(actual).toMatchObject(expected)
+      expect(actual).toHaveProperty('type', LOGOUT_USER)
+      expect(actual).toHaveProperty('payload', data)
     })
   })
 })
