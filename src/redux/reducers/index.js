@@ -1,6 +1,9 @@
-import { combineReducers } from 'redux/es';
-import { routerReducer } from 'react-router-redux';
+import { combineReducers } from 'redux/es'
+import { routerReducer } from 'react-router-redux'
+
+import { authReducer } from '../../modules'
 
 export default combineReducers({
-  routing: routerReducer,
+  auth: authReducer,
+  routing: routerReducer
 })
