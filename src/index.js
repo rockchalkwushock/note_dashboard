@@ -1,45 +1,48 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import { Provider } from 'react-redux/es';
-import { css } from 'glamor';
-import { store } from './redux';
-import Root from './Root';
+import React from 'react'
+import { render } from 'react-dom'
+import { AppContainer } from 'react-hot-loader'
+import { ConnectedRouter } from 'react-router-redux'
+import { Provider } from 'react-redux/es'
+import { css } from 'glamor'
+import { history, store } from './redux'
+import Root from './Root'
 
 // Global Styling Block
 css.global('*', {
-  boxSizing: 'border-box',
-});
+  boxSizing: 'border-box'
+})
 
 css.global('html, body', {
   height: '100vh',
   margin: '0',
   padding: '0',
-  width: '100vw',
-});
+  width: '100vw'
+})
 
 css.global('body', {
   backgroundColor: 'lightblue',
-  maxWidth: '50em',
+  maxWidth: '50em'
 })
 
 const renderApp = Component => {
   render(
     <AppContainer>
       <Provider store={store}>
-        <Component />
+        <ConnectedRouter history={history}>
+          <Component />
+        </ConnectedRouter>
       </Provider>
     </AppContainer>,
     document.getElementById('root')
-  );
-};
+  )
+}
 
-renderApp(Root);
+renderApp(Root)
 
 // Hot Module Replacement API
 if (module.hot) {
   module.hot.accept('./Root.js', () => {
-    const NewApp = require('./Root').default;
-    renderApp(NewApp);
-  });
+    const NewApp = require('./Root').default
+    renderApp(NewApp)
+  })
 }
