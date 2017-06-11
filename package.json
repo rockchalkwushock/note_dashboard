@@ -13,7 +13,6 @@
     "commit": "nps commit",
     "deploy": "nps deploy",
     "dev": "nps start.dev",
-    "now-build": "nps client",
     "now-start": "nps api",
     "precommit": "lint-staged && nps validate",
     "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --no-semi --use-tabs",
@@ -96,6 +95,7 @@
     "react-hot-loader": "3.0.0-beta.6",
     "redbox-react": "~1.4.1",
     "redux-devtools-extension": "~2.13.2",
+    "redux-mock-store": "~1.2.3",
     "supertest": "~3.0.0",
     "webpack": "~2.6.1",
     "webpack-dev-server": "~2.4.5"
