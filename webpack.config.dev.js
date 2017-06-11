@@ -1,13 +1,21 @@
-const webpack = require('webpack');
-const { join } = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
+const { join } = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-require('dotenv-safe').load();
+require('dotenv-safe').load()
 
 const VENDOR_LIBS = [
-  'axios', 'react', 'react-dom', 'react-redux',
-  'react-router-redux', 'redux', 'redux-thunk',
-];
+  'axios',
+  'react',
+  'react-dom',
+  'react-redux',
+  'react-router-dom',
+  'react-router-redux',
+  'redux',
+  'redux-form',
+  'redux-thunk'
+]
 
 module.exports = {
   devtool: 'eval',
@@ -33,6 +41,22 @@ module.exports = {
         use: 'babel-loader',
         test: /\.js$/,
         exclude: /node_modules/
+      },
+      {
+        loader: ExtractTextPlugin.extract({
+          loader: 'css-loader'
+        }),
+        test: /\.css$/
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 40000 }
+          },
+          'image-webpack-loader'
+        ]
       }
     ]
   },
@@ -43,7 +67,7 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       '/api': {
-        target: 'http://[::1]:3000',
+        target: 'http://localhost:3000',
         changeOrigin: true
       }
     }
@@ -59,5 +83,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     }),
+    new ExtractTextPlugin('style.css') // FIXME: Replace with name of css file & remove this.
   ]
-};
+}
