@@ -5,11 +5,6 @@ import Routes from './Routes'
  * TODO:
  *
  * Add navigation.
- *
- * NOTE:
- *
- * For the time being navigate by switching the route
- * in the browser url bar.
  */
 
 export default () =>

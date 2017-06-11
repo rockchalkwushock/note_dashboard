@@ -1,0 +1,22 @@
+{
+  "name": "notes-api",
+  "env": {
+    "JWT_SECRET": "@notes_jwt",
+    "MONGO_URI": "@notes_mongo_uri",
+    "SENTRY_DSN": "@notes_sentry"
+  },
+  "files": [
+    "api/configs/",
+    "api/modules/",
+    "api/services/",
+    "api/utils/",
+    "api/.babelrc",
+    "api/index.js",
+    ".env.example",
+    "./index.js",
+    "now.json",
+    "package-scripts.js",
+    "package.json",
+    "yarn.lock"
+  ]
+}
