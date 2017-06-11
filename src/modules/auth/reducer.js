@@ -23,14 +23,15 @@ export default (state = initialState, { payload, type }) => {
       return {
         ...state,
         isLoggedIn: false,
-        token: null,
-        user: null
+        token: payload.token,
+        user: payload._id
       }
     case FETCH_ERROR:
       return {
         ...state,
         error: true,
-        isFetched: true
+        isFetched: true,
+        message: payload.message
       }
     default:
       return state
