@@ -6,6 +6,9 @@ import {
   FETCH_NOTE,
   NOTE_ERROR
 } from './types'
+import { NotesApi } from '../../utils'
+
+const api = new NotesApi()
 
 const createNote = data => ({
   type: CREATE_NOTE,
@@ -36,4 +39,46 @@ const noteError = data => ({
   payload: data
 })
 
-export { createNote, editNote, deleteNote, fetchAll, noteError, fetchNote }
+const creatingNote = values => async dispatch => {
+  const data = await api.create(values)
+  if (data.message) return dispatch(noteError(data))
+  return dispatch(createNote(data))
+}
+
+const deletingNote = id => async dispatch => {
+  const data = await api.delete(id)
+  if (data.message) return dispatch(noteError(data))
+  return dispatch(deleteNote())
+}
+
+const editingNote = (values, id) => async dispatch => {
+  const data = await api.edit(values, id)
+  if (data.message) return dispatch(noteError(data))
+  return dispatch(editNote(data))
+}
+
+const fetchingNote = id => async dispatch => {
+  const data = await api.getNote(id)
+  if (data.message) return dispatch(noteError(data))
+  return dispatch(fetchNote(data))
+}
+
+const fetchingAllNotes = () => async dispatch => {
+  const data = await api.getAll()
+  if (data.message) return dispatch(noteError(data))
+  return dispatch(fetchAll(data))
+}
+
+export {
+  createNote,
+  creatingNote,
+  deleteNote,
+  deletingNote,
+  editNote,
+  editingNote,
+  fetchAll,
+  fetchingAllNotes,
+  fetchNote,
+  fetchingNote,
+  noteError
+}

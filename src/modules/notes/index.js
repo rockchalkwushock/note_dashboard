@@ -1,10 +1,15 @@
 import {
   createNote,
-  editNote,
+  creatingNote,
   deleteNote,
+  deletingNote,
+  editNote,
+  editingNote,
   fetchAll,
-  noteError,
-  fetchNote
+  fetchingAllNotes,
+  fetchNote,
+  fetchingNote,
+  noteError
 } from './actions'
 import notesReducer, { initialState as noteState } from './reducer'
 import {
@@ -18,14 +23,19 @@ import {
 
 export {
   createNote,
+  creatingNote,
   CREATE_NOTE,
   deleteNote,
+  deletingNote,
   DELETE_NOTE,
   editNote,
+  editingNote,
   EDIT_NOTE,
   fetchAll,
+  fetchingAllNotes,
   FETCH_ALL_NOTES,
   fetchNote,
+  fetchingNote,
   FETCH_NOTE,
   noteError,
   NOTE_ERROR,

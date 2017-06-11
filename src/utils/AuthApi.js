@@ -6,6 +6,7 @@ import axios from 'axios'
  * is no access to any user defined environment
  * variables at runtime.
  */
+/* istanbul ignore else */
 if (process.env.NODE_ENV === 'test') {
   require('dotenv-safe').load()
 }
