@@ -18,7 +18,9 @@
     "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --no-semi --use-tabs",
     "prod": "nps start",
     "start": "nps",
-    "test": "nps test"
+    "test": "nps test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "config": {
     "commitizen": {
@@ -34,12 +36,12 @@
   "dependencies": {
     "axios": "~0.16.2",
     "bcrypt-nodejs": "~0.0.3",
-    "body-parser": "~1.17.2",
-    "compression": "~1.6.2",
+    "body-parser": "~1.18.2",
+    "compression": "~1.7.1",
     "cors": "~2.8.3",
-    "express": "~4.15.3",
+    "express": "~4.16.0",
     "express-validation": "~1.0.2",
-    "helmet": "~3.6.1",
+    "helmet": "~3.8.2",
     "http-status": "~1.0.1",
     "joi": "~10.5.2",
     "jsonwebtoken": "~7.4.1",
@@ -60,7 +62,8 @@
     "react-router-redux": "next",
     "redux": "~3.6.0",
     "redux-form": "~6.8.0",
-    "redux-thunk": "~2.2.0"
+    "redux-thunk": "~2.2.0",
+    "snyk": "^1.41.1"
   },
   "devDependencies": {
     "apidoc": "~0.17.6",
@@ -103,5 +106,6 @@
     "url-loader": "~0.5.8",
     "webpack": "~2.6.1",
     "webpack-dev-server": "~2.4.5"
-  }
+  },
+  "snyk": true
 }
